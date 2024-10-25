@@ -95,3 +95,13 @@ const scrollReveal = function () {
 scrollReveal();
 
 addEventOnElem(window, "scroll", scrollReveal);
+
+
+/**
+ * redirect to registration page on button click
+ */
+const registerButton = document.getElementById('register-btn');
+
+registerButton.addEventListener('click', function () {
+  window.location.href = 'registration.html'; // Redirect to the registration page
+});
