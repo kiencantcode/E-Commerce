@@ -112,9 +112,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const cartModal = document.querySelector("#cart-modal");
   const cartItemsList = document.querySelector("#cart-items-list");
   const closeCartBtn = document.querySelector("#close-cart");
-
-  const cartTotalElement = document.querySelector(".btn-text");
-  const cartBadgeElement = document.querySelector(".btn-badge");
+  const cartTotalElement = document.querySelector("#cart-total-amount");
+  const cartBadgeElement = document.querySelector("#cart-btn .btn-badge");
 
   let cart = {
     items: []
@@ -123,23 +122,28 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to update the cart UI
   function updateCartUI() {
     cartItemsList.innerHTML = ""; // Clear previous items
+    let total = 0; // Initialize total price
+
     cart.items.forEach((item, index) => {
       const listItem = document.createElement("li");
       listItem.innerHTML = `
-        <span>${item.name} - $${item.price.toFixed(2)}</span>
-        <div class="quantity-control">
-          <button class="quantity-btn decrease-btn" data-index="${index}">-</button>
-          <span class="item-quantity">${item.quantity}</span>
-          <button class="quantity-btn increase-btn" data-index="${index}">+</button>
-        </div>
+          <span>${item.name} - $${item.price.toFixed(2)}</span>
+          <div class="quantity-control">
+              <button class="quantity-btn decrease-btn" data-index="${index}">-</button>
+              <span class="item-quantity">${item.quantity}</span>
+              <button class="quantity-btn increase-btn" data-index="${index}">+</button>
+          </div>
       `;
       cartItemsList.appendChild(listItem);
+
+      // Calculate total price
+      total += item.price * item.quantity;
     });
 
     // Update total price and badge
-    cartTotalElement.textContent = `$${cart.items.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2)}`;
+    cartTotalElement.textContent = `$${total.toFixed(2)}`; // Update the total
     cartBadgeElement.textContent = cart.items.reduce((acc, item) => acc + item.quantity, 0);
-    
+
     // Add event listeners for quantity buttons
     const decreaseBtns = document.querySelectorAll(".decrease-btn");
     const increaseBtns = document.querySelectorAll(".increase-btn");
@@ -149,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const index = parseInt(btn.getAttribute("data-index"));
         if (cart.items[index].quantity > 1) {
           cart.items[index].quantity--;
-          updateCartUI();
+          // updateCartUI();
         } else {
           cart.items.splice(index, 1); // Remove item if quantity is 0
           updateCartUI();
@@ -200,3 +204,4 @@ document.addEventListener("DOMContentLoaded", function () {
     cartModal.style.display = "none";
   });
 });
+

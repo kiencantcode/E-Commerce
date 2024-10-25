@@ -962,6 +962,19 @@ body {
   align-items: center;
 }
 
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  font-size: 18px; /* Adjust size as needed */
+  font-weight: bold; /* Make it stand out */
+}
+
+.cart-total span {
+  margin-right: 10px; /* Space between text and amount */
+}
+
+
 .quantity-control {
   display: flex;
   align-items: center;
