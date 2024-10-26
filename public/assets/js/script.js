@@ -205,3 +205,36 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// For View Product
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Function to open product detail modal
+  function openProductDetail(button) {
+      const productName = button.getAttribute('data-product-name');
+      const productPrice = button.getAttribute('data-product-price');
+      const productDescription = button.getAttribute('data-product-description');
+      const productImage = button.getAttribute('data-product-image');
+
+      // Update modal with product details
+      document.getElementById('product-title').textContent = productName;
+      document.getElementById('product-price').textContent = productPrice;
+      document.getElementById('product-description').textContent = productDescription;
+      document.getElementById('product-image').src = productImage;
+
+      // Show the modal
+      document.getElementById('product-detail-modal').style.display = 'flex'; // Change to 'flex' for centering
+  }
+
+  // Attach event listeners to all buttons
+  const productButtons = document.querySelectorAll('.action-btn');
+  productButtons.forEach(button => {
+      button.addEventListener('click', function () {
+          openProductDetail(this); // Pass the clicked button to the function
+      });
+  });
+
+  // Close button functionality
+  document.getElementById('close-detail').addEventListener('click', function () {
+      document.getElementById('product-detail-modal').style.display = 'none';
+  });
+});
