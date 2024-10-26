@@ -993,6 +993,14 @@ body {
   font-weight: bold;
 }
 
+#pay-button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #ddd;
+  border: none;
+  cursor: pointer;
+}
+
 #close-cart {
   margin-top: 10px;
   padding: 8px 12px;
@@ -1067,19 +1075,7 @@ body {
   margin-right: 10px;
 }
 
-.add-to-cart {
-  background-color: green;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-}
 
-.add-to-cart:hover {
-  background-color: darkgreen;
-}
 
 
 

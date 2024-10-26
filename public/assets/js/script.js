@@ -205,36 +205,147 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// For View Product
-
 document.addEventListener("DOMContentLoaded", function () {
-  // Function to open product detail modal
+  // Open product detail modal
   function openProductDetail(button) {
-      const productName = button.getAttribute('data-product-name');
-      const productPrice = button.getAttribute('data-product-price');
-      const productDescription = button.getAttribute('data-product-description');
-      const productImage = button.getAttribute('data-product-image');
+    const productName = button.getAttribute('data-product-name');
+    const productPrice = button.getAttribute('data-product-price');
+    const productDescription = button.getAttribute('data-product-description');
+    const productImage = button.getAttribute('data-product-image');
 
-      // Update modal with product details
-      document.getElementById('product-title').textContent = productName;
-      document.getElementById('product-price').textContent = productPrice;
-      document.getElementById('product-description').textContent = productDescription;
-      document.getElementById('product-image').src = productImage;
+    // Update modal with product details
+    document.getElementById('product-title').textContent = productName;
+    document.getElementById('product-price').textContent = productPrice;
+    document.getElementById('product-description').textContent = productDescription;
+    document.getElementById('product-image').src = productImage;
 
-      // Show the modal
-      document.getElementById('product-detail-modal').style.display = 'flex'; // Change to 'flex' for centering
+    // Show the modal
+    document.getElementById('product-detail-modal').style.display = 'flex'; 
   }
 
-  // Attach event listeners to all buttons
-  const productButtons = document.querySelectorAll('.action-btn');
+  // Attach event listeners to all product detail buttons
+  const productButtons = document.querySelectorAll('.action-btn[data-product-price]');
   productButtons.forEach(button => {
-      button.addEventListener('click', function () {
-          openProductDetail(this); // Pass the clicked button to the function
-      });
+    button.addEventListener('click', function (event) {
+      // Prevent adding to cart when clicking on detail button
+      event.stopPropagation();
+      openProductDetail(this); // Pass the clicked button to the function
+    });
   });
 
   // Close button functionality
   document.getElementById('close-detail').addEventListener('click', function () {
-      document.getElementById('product-detail-modal').style.display = 'none';
+    document.getElementById('product-detail-modal').style.display = 'none';
   });
+
+  // Handle adding to cart
+  const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', function (event) {
+      event.stopPropagation(); // Prevent the click from bubbling up
+      const productName = button.getAttribute('data-product-name');
+      const productPrice = parseFloat(button.getAttribute('data-price'));
+      
+      // Create the product object
+      const product = {
+        name: productName,
+        price: productPrice,
+        quantity: 1,
+      };
+
+      // Call the function to add the product to the cart
+      addToCart(product); 
+    });
+  });
+
+  // Function to handle adding the product to the cart
+  function addToCart(product) {
+    const existingItem = cart.items.find(item => item.name === product.name);
+    if (existingItem) {
+      existingItem.quantity++; // Increase quantity if already in cart
+    } else {
+      cart.items.push({ name: product.name, price: product.price, quantity: 1 }); // Add new product
+    }
+
+    updateCartUI(); // Update the cart UI
+  }
 });
+
+
+  document.querySelectorAll('.action-btn[data-product-price]').forEach(button => {
+    button.addEventListener('click', function (event) {
+      event.stopPropagation(); // Prevent event bubbling
+      const productName = button.getAttribute('data-product-name');
+      const productPrice = parseFloat(button.getAttribute('data-product-price').replace('$', ''));
+      const productDescription = button.getAttribute('data-product-description');
+      const productImage = button.getAttribute('data-product-image');
+
+      // Populate the modal with the product details
+      document.getElementById('product-title').textContent = productName;
+      document.getElementById('product-price').textContent = `$${productPrice.toFixed(2)}`;
+      document.getElementById('product-description').textContent = productDescription;
+      document.getElementById('product-image').src = productImage;
+
+      // Show the product detail modal
+      document.getElementById('product-detail-modal').style.display = 'flex';
+
+      // Add functionality to the Add to Cart button in the modal
+      document.querySelector('.add-to-cart').onclick = function () {
+        const size = document.getElementById('size-select').value; // Get the selected size
+        const product = {
+          name: `${productName} - Size: ${size}`,
+          price: productPrice,
+          quantity: 1,
+        };
+        addToCart(product); // Add product to cart
+        document.getElementById('product-detail-modal').style.display = 'none'; // Close modal after adding
+      };
+    });
+  });
+
+  //Payment method
+  document.addEventListener("DOMContentLoaded", function () {
+    const payButton = document.getElementById("pay-button");
+    
+    payButton.addEventListener("click", function () {
+      const totalAmount = document.getElementById("cart-total-amount").textContent.replace('$', '');
+      const amountInMomoFormat = totalAmount * 10000; // Convert to Momo's currency format (if needed)
+      
+      // Show the QR code modal
+      showQRCode(amountInMomoFormat);
+    });
+  
+    function showQRCode(amount) {
+      const qrCodeContainer = document.createElement('div');
+      qrCodeContainer.id = 'qr-code-container';
+      qrCodeContainer.innerHTML = `<h3>Scan to Pay</h3>`;
+      
+      // Create QR code
+      const qrcode = new QRCode(qrCodeContainer, {
+        text: `momo://pay?amount=${amount}`,
+        width: 128,
+        height: 128,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+  
+      // Append to modal
+      document.body.appendChild(qrCodeContainer);
+      
+      // Optional: Style the QR code modal
+      qrCodeContainer.style.position = 'fixed';
+      qrCodeContainer.style.top = '50%';
+      qrCodeContainer.style.left = '50%';
+      qrCodeContainer.style.transform = 'translate(-50%, -50%)';
+      qrCodeContainer.style.padding = '20px';
+      qrCodeContainer.style.backgroundColor = 'white';
+      qrCodeContainer.style.boxShadow = '0 0 10px rgba(0,0,0,0.5)';
+      
+      // Close QR code modal when clicking outside
+      qrCodeContainer.addEventListener('click', function () {
+        document.body.removeChild(qrCodeContainer);
+      });
+    }
+  });
+  
