@@ -119,6 +119,10 @@ document.addEventListener("DOMContentLoaded", function () {
     items: []
   };
 
+  cartBtn.addEventListener("click", function () {
+    cartModal.style.display = cartModal.style.display === "block" ? "none" : "block"; // Toggle display
+  });
+
   // Function to update the cart UI
   function updateCartUI() {
     cartItemsList.innerHTML = ""; // Clear previous items
@@ -153,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const index = parseInt(btn.getAttribute("data-index"));
         if (cart.items[index].quantity > 1) {
           cart.items[index].quantity--;
-          // updateCartUI();
+          updateCartUI();
         } else {
           cart.items.splice(index, 1); // Remove item if quantity is 0
           updateCartUI();
