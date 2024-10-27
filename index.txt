@@ -115,7 +115,7 @@ aria-label = compare
 <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
 
 $39.00
-$29.00
+$19.99
 
 Facial cleanser
 
@@ -131,9 +131,9 @@ alt = Bio-shroom Rejuvenating Serum
 Bio-shroom Rejuvenating Serum
 
 
-alt = Coffee Bean Caffeine Eye Cream
+alt = Sage Mercury
 
-Coffee Bean Caffeine Eye Cream
+Sage Mercury
 
 
 alt = Facial cleanser
@@ -141,9 +141,9 @@ alt = Facial cleanser
 Facial cleanser
 
 
-alt = Coffee Bean Caffeine Eye Cream
+alt = Sage Mercury
 
-Coffee Bean Caffeine Eye Cream
+Sage Mercury
 
 Under $25
 
