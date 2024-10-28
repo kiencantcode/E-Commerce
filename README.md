@@ -1,19 +1,19 @@
 <div align="center">
   
-  ![GitHub repo size](https://img.shields.io/github/repo-size/codewithsadee/glowing)
-  ![GitHub stars](https://img.shields.io/github/stars/codewithsadee/glowing?style=social)
-  ![GitHub forks](https://img.shields.io/github/forks/codewithsadee/glowing?style=social)
+  ![GitHub repo size](https://img.shields.io/github/repo-size/codewithsadee/EMBROS)
+  ![GitHub stars](https://img.shields.io/github/stars/codewithsadee/EMBROS?style=social)
+  ![GitHub forks](https://img.shields.io/github/forks/codewithsadee/EMBROS?style=social)
 [![Twitter Follow](https://img.shields.io/twitter/follow/codewithsadee_?style=social)](https://twitter.com/intent/follow?screen_name=codewithsadee_)
   [![YouTube Video Views](https://img.shields.io/youtube/views/AMI-6F7CSFc?style=social)](https://youtu.be/AMI-6F7CSFc)
 
   <br />
   <br />
 
-  <h2 align="center">Glowing - eCommerce Website</h2>
+  <h2 align="center">EMBROS - eCommerce Website</h2>
 
-  Glowing is a fully responsive ecommerce website, <br />Responsive for all devices, build using HTML, CSS, and JavaScript.
+  EMBROS is a fully responsive ecommerce website, <br />Responsive for all devices, build using HTML, CSS, and JavaScript.
 
-  <a href="https://codewithsadee.github.io/glowing/"><strong>➥ Live Demo</strong></a>
+  <a href="https://codewithsadee.github.io/EMBROS/"><strong>➥ Live Demo</strong></a>
 
 </div>
 
@@ -21,7 +21,7 @@
 
 ### Demo Screeshots
 
-![Glowing Desktop Demo](./readme-images/desktop.png "Desktop Demo")
+![EMBROS Desktop Demo](./readme-images/desktop.png "Desktop Demo")
 
 ### Prerequisites
 
@@ -31,18 +31,18 @@ Before you begin, ensure you have met the following requirements:
 
 ### Run Locally
 
-To run **Glowing** locally, run this command on your git bash:
+To run **EMBROS** locally, run this command on your git bash:
 
 Linux and macOS:
 
 ```bash
-sudo git clone https://github.com/codewithsadee/glowing.git
+sudo git clone https://github.com/codewithsadee/EMBROS.git
 ```
 
 Windows:
 
 ```bash
-git clone https://github.com/codewithsadee/glowing.git
+git clone https://github.com/codewithsadee/EMBROS.git
 ```
 
 ### Contact

@@ -1,4 +1,4 @@
-Glowing - Reveal The Beauty of Skin
+EMBROS - Reveal The Beauty of Skin
 
 
 
@@ -14,7 +14,7 @@ aria-label = search
 
 <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
 
-alt = Glowing
+alt = EMBROS
 
 aria-label = user
 
@@ -41,7 +41,7 @@ Blog
 
 #---------- MOBILE NAVBAR ----------#
 
-alt = Glowing
+alt = EMBROS
 
 aria-label = close menu
 
@@ -170,7 +170,7 @@ Shop Sale
 
 #---------- FEATURE ----------#
 
-Why Shop with Glowing?
+Why Shop with EMBROS?
 
 alt = Guaranteed PURE
 
@@ -274,7 +274,7 @@ Subscribe
 <ion-icon name="logo-instagram"></ion-icon>
 <ion-icon name="logo-youtube"></ion-icon>
 
-alt = Glowing
+alt = EMBROS
 
 alt = available all payment method
 
