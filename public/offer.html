@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trial Page</title>
+    <link rel="stylesheet" href="./assets/css/offer.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your Trial</h1>
+
+        <form id="offer-form">
+            <label for="image-upload">Upload an Image:</label>
+            <input type="file" id="image-upload" accept="image/*" required>
+
+            <label for="product-select">Select a Product:</label>
+            <div class="custom-dropdown">
+                <div class="dropdown-select" id="product-dropdown">--Choose a Product--</div>
+                <div class="dropdown-list" id="product-list">
+                    <!-- Dynamic product options will be populated here -->
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Sample product data
+        const products = [
+            {
+                name: 'Facial Cleanser',
+                image: './assets/images/product-01.jpg'
+            },
+            {
+                name: 'Olive Mercury',
+                image: './assets/images/product-02.jpg'
+            },
+            {
+                name: 'Sage Mercury',
+                image: './assets/images/product-03.jpg'
+            },
+            {
+                name: 'Sage Mercury',
+                image: './assets/images/product-04.jpg'
+            },
+            {
+                name: 'Sage Mercury',
+                image: './assets/images/product-05.jpg'
+            },
+            {
+                name: 'Sage Mercury',
+                image: './assets/images/product-06.jpg'
+            },
+            {
+                name: 'Sage Mercury',
+                image: './assets/images/product-07.jpg'
+            },
+            {
+                name: 'Sage Mercury',
+                image: './assets/images/product-08.jpg'
+            },
+            {
+                name: 'Sage Mercury',
+                image: './assets/images/product-09.jpg'
+            },
+            {
+                name: 'Sage Mercury',
+                image: './assets/images/product-10.jpg'
+            }
+            // Add more products as needed
+        ];
+
+        const productDropdown = document.getElementById('product-dropdown');
+        const productList = document.getElementById('product-list');
+
+        // Populate the dropdown with product names and images
+        products.forEach(product => {
+            const div = document.createElement('div');
+            div.innerHTML = `<img src="${product.image}" alt="${product.name}">${product.name}`;
+            div.onclick = function() {
+                productDropdown.innerHTML = product.name; // Update dropdown text
+                productDropdown.setAttribute('data-value', product.name); // Store selected value
+                productList.style.display = 'none'; // Hide the dropdown list
+            };
+            productList.appendChild(div);
+        });
+
+        productDropdown.onclick = function() {
+            productList.style.display = productList.style.display === 'block' ? 'none' : 'block'; // Toggle dropdown
+        };
+
+        document.addEventListener('click', function(event) {
+            if (!productDropdown.contains(event.target)) {
+                productList.style.display = 'none'; // Hide dropdown if clicked outside
+            }
+        });
+
+        document.getElementById('offer-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const imageFile = document.getElementById('image-upload').files[0];
+            const selectedProduct = productDropdown.getAttribute('data-value');
+
+            if (imageFile && selectedProduct) {
+                // Handle the file upload and product selection
+                alert(`Image: ${imageFile.name} selected for ${selectedProduct}`);
+                // Add additional logic here to handle the form submission
+            } else {
+                alert("Please select an image and a product.");
+            }
+        });
+    </script>
+</body>
+</html>
