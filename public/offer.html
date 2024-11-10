@@ -9,12 +9,12 @@
 <body>
     <div class="container">
         <h1>Select Your Trial</h1>
-
-        <form id="offer-form">
+        <form id="offer-form" enctype="multipart/form-data" action="/upload-image" method="post">
             <label for="image-upload">Upload an Image:</label>
-            <input type="file" id="image-upload" accept="image/*" required>
+            <input type="file" id="image-upload" name="image" accept="image/*" required>
 
             <label for="product-select">Select a Product:</label>
+            <input type="hidden" id="product-choice" name="productChoice">
             <div class="custom-dropdown">
                 <div class="dropdown-select" id="product-dropdown">--Choose a Product--</div>
                 <div class="dropdown-list" id="product-list">
@@ -24,6 +24,7 @@
 
             <button type="submit">Submit</button>
         </form>
+
     </div>
 
     <script>
@@ -98,18 +99,35 @@
         });
 
         document.getElementById('offer-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent the form from submitting in the traditional way
+
+            const formData = new FormData();
             const imageFile = document.getElementById('image-upload').files[0];
             const selectedProduct = productDropdown.getAttribute('data-value');
 
             if (imageFile && selectedProduct) {
-                // Handle the file upload and product selection
-                alert(`Image: ${imageFile.name} selected for ${selectedProduct}`);
-                // Add additional logic here to handle the form submission
+                formData.append('image', imageFile);
+                formData.append('productChoice', selectedProduct);
+
+                // Use fetch to send the form data
+                fetch('/upload-image', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data); // Show a success message without leaving the page
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to upload image');
+                });
             } else {
                 alert("Please select an image and a product.");
             }
         });
+
+
     </script>
 </body>
 </html>

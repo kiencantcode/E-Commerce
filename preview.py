@@ -1,10 +1,8 @@
 import cv2
 from rembg import remove
 import numpy as np
+import sys
 
-import cv2
-from rembg import remove
-import numpy as np
 
 def overlay_image_on_tshirt(tshirt_path, pic_path, output_path="output_tshirt.jpg"):
     # Load the t-shirt image
@@ -55,7 +53,23 @@ def overlay_image_on_tshirt(tshirt_path, pic_path, output_path="output_tshirt.jp
     print(f"Saved the result to {output_path}")
 
 # Example usage
-overlay_image_on_tshirt("D:\Study\HK7\EC\E-Commerce\public\\assets\images\product-01.jpg",
-                        "D:\Study\HK7\EC\E-Commerce\public\\assets\images\dragon.jpg",
-                        "output_tshirt.jpg")
+# overlay_image_on_tshirt("D:\Study\HK7\EC\E-Commerce\public\\assets\images\product-01.jpg",
+#                         "D:\Study\HK7\EC\E-Commerce\public\\assets\images\dragon.jpg",
+#                         "output_tshirt.jpg")
 
+def generate_preview(product, image):
+    # Your code to generate a preview based on product and image
+    print(f"Generating preview for Product: {product}, Image: {image}")
+    overlay_image_on_tshirt(product,
+                            f".\\uploads\\{image}",
+                            f".\\outputs\\{image}")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("Usage: preview.py <product> <image>")
+        sys.exit(1)
+
+    product = sys.argv[1]
+    image = sys.argv[2]
+    generate_preview(product, image)
