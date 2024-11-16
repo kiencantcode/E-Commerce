@@ -96,56 +96,43 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/upload-image', upload.single('image'), (req, res) => {
-  if (req.file) {
-    const productChoice = req.body.productChoice;
-    const imageName = req.file.filename;
+    if (req.file) {
+        const selectedProductName = req.body.productChoice; // Get the selected product name
+        const selectedProduct = products.find(product => product.name === selectedProductName);
 
-    // Find the selected product's image path from the products array
-    const product = products.find(p => p.name === productChoice);
-    const productImagePath = product ? product.image : null;
-
-    if (!productImagePath) {
-      return res.status(400).send('Selected product not found');
-    }
-
-    const newEntry = { productImagePath, image: imageName }; // Save the product image path and uploaded image name
-    const offerFilePath = path.join(__dirname, 'offer.json');
-
-    // Read existing data, append the new entry, and write back to offer.json
-    fs.readFile(offerFilePath, 'utf8', (err, data) => {
-      let jsonData = [];
-      if (!err && data) {
-        jsonData = JSON.parse(data);
-      }
-      jsonData.push(newEntry);
-
-      fs.writeFile(offerFilePath, JSON.stringify(jsonData, null, 2), (writeErr) => {
-        if (writeErr) {
-          console.error('Error writing to offer.json', writeErr);
-          return res.status(500).send('Internal Server Error');
+        if (!selectedProduct) {
+            return res.status(400).send('Invalid product selected');
         }
 
-        // Run the preview.py script with the latest entry as an argument
-        exec(`python preview.py "${productImagePath}" "${imageName}"`, (error, stdout, stderr) => {
-          if (error) {
-            console.error(`Error executing preview.py: ${error.message}`);
-            return res.status(500).send('Error generating preview');
-          }
-          if (stderr) {
-            console.error(`stderr: ${stderr}`);
-          }
-          console.log(`stdout: ${stdout}`);
-          res.send(`Image uploaded and preview generated successfully: ${req.file.path}`);
+        const productImagePath = path.resolve(selectedProduct.image); // Absolute path for the product image
+        const uploadedImageName = path.basename(req.file.filename); // Name of the uploaded image
+        const outputFolder = path.join(__dirname, 'outputs');
+        const outputImagePath = path.join(outputFolder, uploadedImageName); // Output image path
+
+        if (!fs.existsSync(outputFolder)) {
+            fs.mkdirSync(outputFolder, { recursive: true }); // Create outputs folder if missing
+        }
+
+        // Run the Python script
+        const command = `python preview.py "${productImagePath}" "${uploadedImageName}"`;
+        exec(command, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error generating preview: ${error.message}`);
+                return res.status(500).send('Error generating preview');
+            }
+            if (stderr) {
+                console.error(`stderr: ${stderr}`);
+            }
+
+            // Send the relative path of the output image to the frontend
+            res.json({ outputImage: `/outputs/${uploadedImageName}` });
         });
-      });
-    });
-  } else {
-    res.status(400).send('No image uploaded');
-  }
+    } else {
+        res.status(400).send('No image uploaded');
+    }
 });
 
-
-
+app.use('/outputs', express.static(path.join(__dirname, 'outputs')));
 
 
 // Start the server
