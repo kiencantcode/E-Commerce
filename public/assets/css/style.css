@@ -1645,3 +1645,12 @@ body {
 .hover\:shine:is(:hover, :focus) .has-bg-image {
   transform: scale(1.15); /* Zoom effect on hover */
 }
+
+#input-preview {
+    max-width: 100px;
+    max-height: 100px;
+    margin-top: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    display: none;
+}

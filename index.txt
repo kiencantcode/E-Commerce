@@ -115,7 +115,7 @@ aria-label = compare
 <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
 
 $39.00
-$19.99
+$19.00
 
 Facial cleanser
 
