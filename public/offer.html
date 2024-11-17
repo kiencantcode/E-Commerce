@@ -105,15 +105,25 @@
             border: 1px solid #ddd;
         }
 
-        button {
-            background-color: #007bff;
-            color: #fff;
+        button{
+            /* background-color: #007bff;
+            color: #fff; */
             border: none;
             cursor: pointer;
             font-weight: bold;
             font-size: 1rem;
             padding: 12px 25px;
             border-radius: 8px;
+        }
+
+        #submit {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        #checkout {
+            background-color: #5F9EA0;
+            color: #fff;
         }
 
         button:hover {
@@ -191,7 +201,8 @@
                     </div>
                 </div>
 
-                <button type="submit">Submit</button>
+                <button type="submit" id="submit">Submit</button>
+                <button type="checkout" id="checkout" onclick="window.location.href='payment.html';">Checkout</button>
             </form>
         </div>
     </div>

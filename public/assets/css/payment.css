@@ -81,23 +81,47 @@ h2 {
   margin-bottom: 5px;
 }
 
+.button-container {
+  display: flex; /* Enables flexbox layout */
+  justify-content: center; /* Centers the buttons horizontally */
+  gap: 10px; /* Adds spacing between the buttons */
+  margin-top: 20px; /* Adds space between the buttons and other elements */
+}
+
 button {
   padding: 12px 20px;
-  margin: 15px 0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  flex: 0; /* Ensures the buttons take up only the width of their content */
 }
 
 .submit-btn {
   background-color: #4CAF50;
   color: white;
-  width: 100%;
+  width: auto; /* Ensures the button size is based on its content */
 }
 
 .pay-later-btn {
   background-color: #f44336;
   color: white;
-  width: 100%;
+  width: auto; /* Ensures the button size is based on its content */
+}
+
+.qr-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.qr-section img.momo-qr {
+  width: 300px;
+  height: 300px;
+  margin: 10px auto;
+  display: block;
+}
+
+.qr-section p {
   margin-top: 10px;
+  font-size: 14px;
+  color: #555;
 }

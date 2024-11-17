@@ -9,48 +9,30 @@
 <body>
     <div class="checkout-container">
         <h2>Checkout</h2>
-        <div class="payment-method-options">
-          <div>
-              <input type="radio" id="visa" name="payment-method" />
-              <label for="visa">Visa</label>
-          </div>
-          <div>
-              <input type="radio" id="mastercard" name="payment-method" />
-              <label for="mastercard">MasterCard</label>
-          </div>
-          <div>
-              <input type="radio" id="paypal" name="payment-method" />
-              <label for="paypal">PayPal</label>
-          </div>
-      </div>      
-
         <div class="payment-details">
-            <label for="card-holder">Name of card holder</label>
-            <input type="text" id="card-holder" placeholder="Enter cardholder name">
-
-            <label for="card-number">Card number</label>
-            <input type="text" id="card-number" placeholder="Enter card number">
-
-            <label for="cvv">CVV</label>
-            <input type="text" id="cvv" placeholder="Enter CVV">
-
-            <label for="postal-code">Postal code</label>
-            <input type="text" id="postal-code" placeholder="Enter postal code">
-
-            <label for="exp-date">EXP. Date</label>
-            <input type="text" id="exp-date" placeholder="Enter expiration date">
-
-            <div class="summary">
-                <h3>Summary</h3>
-                <!-- <p>Sub total: $48.00</p> -->
-                <!-- <p>Discount (20%): $4.00</p> -->
-                <p>Name of Product: </p>
-                <p><strong>Total: $00.00</strong></p>
-            </div>
-
-            <button id="submit" class="submit-btn">Submit</button>
-            <button id="pay-later" class="pay-later-btn">Pay later</button>
-        </div>
+          <label for="card-holder">Full Name</label>
+          <input type="text" id="card-holder" placeholder="Enter your fullname">
+      
+          <label for="card-number">Phone Number</label>
+          <input type="text" id="card-number" placeholder="Enter your phone number">
+      
+          <label for="cvv">Address</label>
+          <input type="text" id="cvv" placeholder="Enter your address">
+      
+          <div class="summary">
+              <h3>Summary</h3>
+              <p>Name of Product: </p>
+              <p><strong>Total: $00.00</strong></p>
+          </div>
+      
+          <div class="qr-section">
+              <img src="./assets/images/momo.jpg" alt="MoMo QR Code" class="momo-qr">
+              <p>Scan the QR code with your MoMo app to pay</p>
+          </div>
+      
+          <button id="submit" class="submit-btn">Submit</button>
+          <button id="pay-later" class="pay-later-btn">Exit</button>
+      </div>
     </div>
 
     <script src="./assets/js/payment.js"></script>
