@@ -4,77 +4,233 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trial Page</title>
-    <link rel="stylesheet" href="./assets/css/offer.css"> <!-- Link to your CSS file -->
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            background-size: cover; /* Ensures the image covers the entire background */
+            background-repeat: no-repeat; /* Prevents tiling */
+            background-position: center; /* Centers the image */
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 90%; /* Slightly reduced height for better visibility */
+            margin: 20px;
+        }
+
+        .preview-container, .form-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 10px; /* Rounded corners */
+            border: 2px solid #ddd; /* Clear border */
+            background: white;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+        }
+
+        /* Preview Section */
+        .preview-container {
+            background-color: #ecebeb;
+        }
+
+        .preview-container h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: black; /* Main text color */
+            text-shadow: 
+                -1px -1px 0 #fff,  
+                1px -1px 0 #fff,  
+                -1px 1px 0 #fff,  
+                1px 1px 0 #fff; /* Creates the white border */
+            text-align: center; /* Centers the text */
+        }
+
+        .preview-container img {
+            max-width: 90%; /* Increase the maximum width */
+            max-height: 90%; /* Increase the maximum height */
+            border-radius: 10px;
+            display: none; /* Hidden until an image is shown */
+            border: 3px solid #ccc;
+            object-fit: contain; /* Maintain aspect ratio while scaling */
+        }
+
+        /* Form Section */
+        .form-container {
+            background-color: #ecebeb;
+        }
+
+        .form-container h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: black; /* Main text color */
+            text-shadow: 
+                -1px -1px 0 #fff,  
+                1px -1px 0 #fff,  
+                -1px 1px 0 #fff,  
+                1px 1px 0 #fff; /* Creates the white border */
+            text-align: center; /* Centers the text */
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: block;
+            color: black; /* Main text color */
+            text-shadow: 
+                -1px -1px 0 #fff,  
+                1px -1px 0 #fff,  
+                -1px 1px 0 #fff,  
+                1px 1px 0 #fff; /* Creates the white border */
+        }
+
+        input[type="file"], .dropdown-select, button {
+            width: 80%;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 12px 25px;
+            border-radius: 8px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .custom-dropdown {
+            position: relative;
+            width: 80%;
+        }
+
+        .dropdown-list {
+            max-height: 150px; /* Reduced dropdown size */
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            position: absolute;
+            z-index: 10;
+            width: 100%;
+            background: white;
+            border-radius: 5px;
+        }
+
+        .dropdown-list div {
+            padding: 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-list div img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .dropdown-list div:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown-select {
+            cursor: pointer;
+            background-color: #f8f9fa;
+        }
+
+        .dropdown-select:hover {
+            background-color: #e2e6ea;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Select Your Trial</h1>
-        <form id="offer-form" enctype="multipart/form-data" action="/upload-image" method="post">
-            <label for="image-upload">Upload an Image:</label>
-            <input type="file" id="image-upload" name="image" accept="image/*" required>
+        <!-- Preview Section -->
+        <div class="preview-container">
+            <h2>Customed T-shirt</h2>
+            <img id="output-preview" src="" alt="No Preview Available">
+        </div>
 
-            <label for="product-select">Select a Product:</label>
-            <input type="hidden" id="product-choice" name="productChoice">
-            <div class="custom-dropdown">
-                <div class="dropdown-select" id="product-dropdown">--Choose a Product--</div>
-                <div class="dropdown-list" id="product-list">
-                    <!-- Dynamic product options will be populated here -->
+        <!-- Form Section -->
+        <div class="form-container">
+            <h1>Custom Your T-shirt</h1>
+            <form id="offer-form" enctype="multipart/form-data" action="/upload-image" method="post">
+                <label for="image-upload">Your image:</label>
+                <input type="file" id="image-upload" name="image" accept="image/*" required>
+                <img id="input-preview" src="" alt="Input Preview" style="display:none; max-width: 100px; margin-top: 10px; border: 2px solid #ddd; border-radius: 5px;">
+                <!-- <input type="file" id="image-upload" name="image" accept="image/*" required> -->
+
+                <label for="product-select">T-shirt style:</label>
+                <input type="hidden" id="product-choice" name="productChoice">
+                <div class="custom-dropdown">
+                    <div class="dropdown-select" id="product-dropdown">--Choose a Product--</div>
+                    <div class="dropdown-list" id="product-list">
+                        <!-- Dynamic product options will be populated here -->
+                    </div>
                 </div>
-            </div>
 
-            <button type="submit">Submit</button>
-        </form>
-
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     </div>
 
     <script>
         // Sample product data
         const products = [
-            {
-                name: 'Burgundy Mercury',
-                image: './assets/images/product-01.jpg'
-            },
-            {
-                name: 'Olive Mercury',
-                image: './assets/images/product-02.jpg'
-            },
-            {
-                name: 'Sage Mercury',
-                image: './assets/images/product-03.jpg'
-            },
-            {
-                name: 'Pink Mercury',
-                image: './assets/images/product-04.jpg'
-            },
-            {
-                name: 'Reddish-brown Mercury',
-                image: './assets/images/product-05.jpg'
-            },
-            {
-                name: 'Brick-Red Mercury',
-                image: './assets/images/product-06.jpg'
-            },
-            {
-                name: 'Neon Mercury',
-                image: './assets/images/product-07.jpg'
-            },
-            {
-                name: 'Gray Mercury',
-                image: './assets/images/product-08.jpg'
-            },
-            {
-                name: 'Yellow Mercury',
-                image: './assets/images/product-09.jpg'
-            },
-            {
-                name: 'Black Mercury',
-                image: './assets/images/product-10.jpg'
-            }
-            // Add more products as needed
+            { name: 'Burgundy Mercury', image: './assets/images/product-01.jpg' },
+            { name: 'Olive Mercury', image: './assets/images/product-02.jpg' },
+            { name: 'Sage Mercury', image: './assets/images/product-03.jpg' },
+            //{ name: 'Pink Mercury', image: './assets/images/product-04.jpg' },
+            //{ name: 'Reddish-brown Mercury', image: './assets/images/product-05.jpg' },
+            //{ name: 'Brick-Red Mercury', image: './assets/images/product-06.jpg' },
+            //{ name: 'Neon Mercury', image: './assets/images/product-07.jpg' },
+            //{ name: 'Gray Mercury', image: './assets/images/product-08.jpg' },
+            //{ name: 'Yellow Mercury', image: './assets/images/product-09.jpg' },
+            //{ name: 'Black Mercury', image: './assets/images/product-10.jpg' }
         ];
-
         const productDropdown = document.getElementById('product-dropdown');
         const productList = document.getElementById('product-list');
+        const outputPreview = document.getElementById('output-preview');
+
+        const inputPreview = document.getElementById('input-preview');
+        const imageUpload = document.getElementById('image-upload');
+
+        imageUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    inputPreview.src = e.target.result; // Set the preview image source
+                    inputPreview.style.display = 'block'; // Make the preview image visible
+                };
+                reader.readAsDataURL(file); // Read the file as a data URL
+            } else {
+                inputPreview.src = ''; // Clear the preview image if no file is selected
+                inputPreview.style.display = 'none'; // Hide the preview image
+            }
+        });
 
         // Populate the dropdown with product names and images
         products.forEach(product => {
@@ -99,7 +255,7 @@
         });
 
         document.getElementById('offer-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting in the traditional way
+            event.preventDefault(); // Prevent the form from submitting traditionally
 
             const formData = new FormData();
             const imageFile = document.getElementById('image-upload').files[0];
@@ -109,14 +265,21 @@
                 formData.append('image', imageFile);
                 formData.append('productChoice', selectedProduct);
 
-                // Use fetch to send the form data
+                // Send the form data to the server
                 fetch('/upload-image', {
                     method: 'POST',
                     body: formData
                 })
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(data => {
-                    alert(data); // Show a success message without leaving the page
+                    if (data.outputImage) {
+                        // Update the preview image with the output image
+                        const outputPreview = document.getElementById('output-preview');
+                        outputPreview.src = data.outputImage; // Use the relative path of the generated image
+                        outputPreview.style.display = 'block'; // Show the preview
+                    } else {
+                        alert('Failed to generate output image');
+                    }
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -126,7 +289,6 @@
                 alert("Please select an image and a product.");
             }
         });
-
 
     </script>
 </body>

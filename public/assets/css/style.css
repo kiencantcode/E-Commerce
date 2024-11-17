@@ -1600,3 +1600,57 @@ body {
   .offer .container { gap: 120px; }
 
 }
+
+/* Styling for the collection-card to match banner-card */
+.collection-card .card-title {
+  font-size: var(--fs-3); /* Match banner card title size */
+  font-weight: var(--fw-600); /* Match font weight */
+  color: var(--black);
+  text-shadow: 0 0 2px var(--cultured-2); /* Add a white shadow around text */
+  margin-block: 10px 20px; /* Adjust spacing similar to banner */
+}
+
+.collection-card .card-text {
+  color: var(--black);
+  font-size: var(--fs-6); /* Adjust size for subtitle text */
+  text-shadow: 0 0 2px var(--cultured-2); /* Add shadow */
+}
+
+.collection-card .btn-link {
+  color: var(--black);
+  font-weight: var(--fw-600);
+  background-color: var(--white); /* Match the button style */
+  padding: 10px 20px;
+  border-radius: var(--radius-3);
+  text-decoration: none;
+  transition: var(--transition-1);
+}
+
+.collection-card .has-bg-image {
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1; /* Ensure it sits behind the text */
+  opacity: 0.8; /* Optional: Adds a slight transparency */
+}
+
+.hover\:shine .has-bg-image {
+  transition: var(--transition-2);
+}
+
+.hover\:shine:is(:hover, :focus) .has-bg-image {
+  transform: scale(1.15); /* Zoom effect on hover */
+}
+
+#input-preview {
+    max-width: 100px;
+    max-height: 100px;
+    margin-top: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    display: none;
+}
