@@ -306,83 +306,83 @@ document.addEventListener("DOMContentLoaded", function () {
     showQRCode(amountInMomoFormat);
   });
 
-  function showQRCode(amount) {
-    const qrCodeContainer = document.createElement('div');
-    qrCodeContainer.id = 'qr-code-container';
+//   function showQRCode(amount) {
+//     const qrCodeContainer = document.createElement('div');
+//     qrCodeContainer.id = 'qr-code-container';
 
-    // Create a wrapper for the QR code and title
-    const qrWrapper = document.createElement('div');
-    qrWrapper.style.textAlign = 'center'; // Center the content
-    qrWrapper.style.marginBottom = '20px'; // Add bottom margin to title
+//     // Create a wrapper for the QR code and title
+//     const qrWrapper = document.createElement('div');
+//     qrWrapper.style.textAlign = 'center'; // Center the content
+//     qrWrapper.style.marginBottom = '20px'; // Add bottom margin to title
 
-    // Add title to the QR wrapper
-    const title = document.createElement('h3');
-    title.textContent = "Scan to Pay";
-    title.style.marginBottom = '10px'; // Margin below the title
-    qrWrapper.appendChild(title);
+//     // Add title to the QR wrapper
+//     const title = document.createElement('h3');
+//     title.textContent = "Scan to Pay";
+//     title.style.marginBottom = '10px'; // Margin below the title
+//     qrWrapper.appendChild(title);
 
-    // Create QR code
-    const qrcode = new QRCode(qrWrapper, {
-        text: `https://me.momo.vn/OeIRuaTosKIQuqUPuZie`, // Use your MoMo link
-        width: 128,
-        height: 128,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H,
-    });
+//     // Create QR code
+//     const qrcode = new QRCode(qrWrapper, {
+//         text: `https://me.momo.vn/OeIRuaTosKIQuqUPuZie`, // Use your MoMo link
+//         width: 128,
+//         height: 128,
+//         colorDark: "#000000",
+//         colorLight: "#ffffff",
+//         correctLevel: QRCode.CorrectLevel.H,
+//     });
 
-    // Create buttons container
-    const buttonsContainer = document.createElement('div');
-    buttonsContainer.style.display = 'flex';
-    buttonsContainer.style.justifyContent = 'center'; // Center the buttons
-    buttonsContainer.style.marginTop = '10px'; // Margin above buttons
+//     // Create buttons container
+//     const buttonsContainer = document.createElement('div');
+//     buttonsContainer.style.display = 'flex';
+//     buttonsContainer.style.justifyContent = 'center'; // Center the buttons
+//     buttonsContainer.style.marginTop = '10px'; // Margin above buttons
 
-    // Create checkout button
-    const checkoutButton = document.createElement('button');
-    checkoutButton.textContent = "Checkout";
-    checkoutButton.classList.add('btn', 'btn-primary'); // Use your existing button class
-    checkoutButton.style.backgroundColor = 'green'; // Change the background color to green
-    checkoutButton.style.color = 'white'; // Change text color to white
-    checkoutButton.style.marginRight = '10px'; // Margin to the right of the Checkout button
-    checkoutButton.onclick = function() {
-        // Clear the cart items
-        cart.items = []; // Reset cart items
-        updateCartUI(); // Update the cart UI to reflect changes
-        document.body.removeChild(qrCodeContainer); // Close the QR code modal
-    };
+//     // Create checkout button
+//     const checkoutButton = document.createElement('button');
+//     checkoutButton.textContent = "Checkout";
+//     checkoutButton.classList.add('btn', 'btn-primary'); // Use your existing button class
+//     checkoutButton.style.backgroundColor = 'green'; // Change the background color to green
+//     checkoutButton.style.color = 'white'; // Change text color to white
+//     checkoutButton.style.marginRight = '10px'; // Margin to the right of the Checkout button
+//     checkoutButton.onclick = function() {
+//         // Clear the cart items
+//         cart.items = []; // Reset cart items
+//         updateCartUI(); // Update the cart UI to reflect changes
+//         document.body.removeChild(qrCodeContainer); // Close the QR code modal
+//     };
 
-    // Create close button
-    const closeButton = document.createElement('button');
-    closeButton.textContent = "Close";
-    closeButton.classList.add('btn', 'btn-secondary'); // Use your existing button class
-    closeButton.style.backgroundColor = 'red'; // Change the background color to red
-    closeButton.style.color = 'white'; // Change text color to white
-    closeButton.onclick = function() {
-        document.body.removeChild(qrCodeContainer);
-    };
+//     // Create close button
+//     const closeButton = document.createElement('button');
+//     closeButton.textContent = "Close";
+//     closeButton.classList.add('btn', 'btn-secondary'); // Use your existing button class
+//     closeButton.style.backgroundColor = 'red'; // Change the background color to red
+//     closeButton.style.color = 'white'; // Change text color to white
+//     closeButton.onclick = function() {
+//         document.body.removeChild(qrCodeContainer);
+//     };
 
-    // Append buttons to the container
-    buttonsContainer.appendChild(checkoutButton);
-    buttonsContainer.appendChild(closeButton);
+//     // Append buttons to the container
+//     buttonsContainer.appendChild(checkoutButton);
+//     buttonsContainer.appendChild(closeButton);
 
-    // Append QR code and buttons to the QR code container
-    qrCodeContainer.appendChild(qrWrapper);
-    qrCodeContainer.appendChild(buttonsContainer);
+//     // Append QR code and buttons to the QR code container
+//     qrCodeContainer.appendChild(qrWrapper);
+//     qrCodeContainer.appendChild(buttonsContainer);
 
-    // Optional: Style the QR code modal
-    qrCodeContainer.style.position = 'fixed';
-    qrCodeContainer.style.top = '50%';
-    qrCodeContainer.style.left = '50%';
-    qrCodeContainer.style.transform = 'translate(-50%, -50%)';
-    qrCodeContainer.style.padding = '20px';
-    qrCodeContainer.style.backgroundColor = 'white';
-    qrCodeContainer.style.boxShadow = '0 0 10px rgba(0,0,0,0.5)';
-    qrCodeContainer.style.textAlign = 'center'; // Center the QR code and title within the container
-    qrCodeContainer.style.display = 'flex';
-    qrCodeContainer.style.flexDirection = 'column'; // Stack items vertically
-    qrCodeContainer.style.alignItems = 'center'; // Center align items in the flex container
+//     // Optional: Style the QR code modal
+//     qrCodeContainer.style.position = 'fixed';
+//     qrCodeContainer.style.top = '50%';
+//     qrCodeContainer.style.left = '50%';
+//     qrCodeContainer.style.transform = 'translate(-50%, -50%)';
+//     qrCodeContainer.style.padding = '20px';
+//     qrCodeContainer.style.backgroundColor = 'white';
+//     qrCodeContainer.style.boxShadow = '0 0 10px rgba(0,0,0,0.5)';
+//     qrCodeContainer.style.textAlign = 'center'; // Center the QR code and title within the container
+//     qrCodeContainer.style.display = 'flex';
+//     qrCodeContainer.style.flexDirection = 'column'; // Stack items vertically
+//     qrCodeContainer.style.alignItems = 'center'; // Center align items in the flex container
 
-    // Append to modal
-    document.body.appendChild(qrCodeContainer);
-}
+//     // Append to modal
+//     document.body.appendChild(qrCodeContainer);
+// }
 });

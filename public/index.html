@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EMBROS - Reveal The Beauty of Skin</title>
+  <title>EMBROS</title>
 
   <!-- 
     - favicon
@@ -1292,6 +1292,7 @@
 
 
   <!-- Cart Modal -->
+
   <div class="cart-modal" id="cart-modal">
     <h2>Your Cart</h2>
     <ul class="cart-items" id="cart-items-list">
@@ -1302,10 +1303,18 @@
       <span id="cart-total-amount">$0.00</span>
     </div>
     <div class="cart-buttons">
-      <button id="pay-button" class="pay-button">Pay with Momo</button>
+      <button id="pay-button" class="pay-button">Customize Your T-shirt</button>
       <button id="close-cart" class="close-button">Close</button>
     </div>
   </div>
+
+  <script>
+    document.getElementById("pay-button").addEventListener("click", function() {
+        window.location.href = "offer.html";
+    });
+    
+  </script>
+  
 
   <!-- Product Details -->
 

@@ -1,2 +1,3 @@
-Email: kienbk09052003@gmail.com, Password: Kien.09052003
-Email: nguyen@gmail.com, Password: nguyen
+Email: nam@gmail.com, Password: nam
+Email: kien@gmail.com, Password: kien
+Email: nguyen@gmail.com, Password: $2b$10$7tr0ooKhu6MS207a9K2AL.KQ/h4qvyFKmE0/9EjZ7144IhEdZMSPa

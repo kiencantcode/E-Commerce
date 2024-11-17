@@ -5,6 +5,13 @@ const multer = require('multer');
 const { exec } = require('child_process');
 const app = express();
 const PORT = 3000;
+const rateLimit = require('express-rate-limit');
+const bcrypt = require('bcrypt');
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // Limit each IP to 5 login attempts per windowMs
+    message: 'Too many login attempts, please try again later.'
+});
 const products = [
   { id: 'product1', name: 'Burgundy Mercury', image: '.\\public\\assets\\images\\product-01.jpg' },
   { id: 'product2', name: 'Olive Mercury', image: '.\\public\\assets\\images\\product-02.jpg' },
@@ -55,44 +62,138 @@ app.get('/products', (req, res) => {
 });
 
 // Endpoint to save user registration data
+// app.post('/register', (req, res) => {
+//   const { email, password } = req.body;
+  
+//   // Format data as text
+//   const userData = `Email: ${email}, Password: ${password}\n`;
+  
+//   // Append data to users.txt file, create the file if it doesn't exist
+//   fs.appendFile('users.txt', userData, (err) => {
+//     if (err) {
+//       console.error('Error writing to file', err);
+//       res.status(500).send('Internal Server Error');
+//       return;
+//     }
+//     res.send('Registration successful!');
+//   });
+// });
+
 app.post('/register', (req, res) => {
-  const { email, password } = req.body;
-  
-  // Format data as text
-  const userData = `Email: ${email}, Password: ${password}\n`;
-  
-  // Append data to users.txt file, create the file if it doesn't exist
-  fs.appendFile('users.txt', userData, (err) => {
-    if (err) {
-      console.error('Error writing to file', err);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
-    res.send('Registration successful!');
-  });
+    const { email, password } = req.body;
+
+    // Hash the password before saving
+    const saltRounds = 10; // Number of salt rounds (adjust for security vs performance)
+    bcrypt.hash(password, saltRounds, (err, hashedPassword) => {
+        if (err) {
+            console.error('Error hashing password:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        // Store the email and hashed password
+        const userData = `Email: ${email}, Password: ${hashedPassword}\n`;
+
+        // Append user data to users.txt
+        fs.appendFile('users.txt', userData, (err) => {
+            if (err) {
+                console.error('Error writing to file:', err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+            res.send('Registration successful!');
+        });
+    });
 });
 
 // Endpoint to handle login
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
+// app.post('/login', (req, res) => {
+//   const { email, password } = req.body;
 
-  fs.readFile('users.txt', 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading file', err);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
+//   fs.readFile('users.txt', 'utf8', (err, data) => {
+//     if (err) {
+//       console.error('Error reading file', err);
+//       res.status(500).send('Internal Server Error');
+//       return;
+//     }
 
-    // Check if email and password match
-    const users = data.split('\n').map(line => line.split(', '));
-    const userFound = users.some(user => user[0] === `Email: ${email}` && user[1] === `Password: ${password}`);
+//     // Check if email and password match
+//     const users = data.split('\n').map(line => line.split(', '));
+//     const userFound = users.some(user => user[0] === `Email: ${email}` && user[1] === `Password: ${password}`);
     
-    if (userFound) {
-      res.send('Login successful!');
-    } else {
-      res.status(401).send('Invalid email or password');
-    }
-  });
+//     if (userFound) {
+//       res.send('Login successful!');
+//     } else {
+//       res.status(401).send('Invalid email or password');
+//     }
+//   });
+// });
+
+// app.post('/login', loginLimiter, (req, res) => {
+//     const { email, password } = req.body;
+
+//     fs.readFile('users.txt', 'utf8', (err, data) => {
+//         if (err) {
+//             console.error('Error reading file', err);
+//             res.status(500).send('Internal Server Error');
+//             return;
+//         }
+
+//         // Check if email and password match
+//         const users = data.split('\n').map(line => line.split(', '));
+//         const userFound = users.some(user => user[0] === `Email: ${email}` && user[1] === `Password: ${password}`);
+
+//         if (userFound) {
+//             res.send('Login successful!');
+//         } else {
+//             res.status(401).send('Invalid email or password');
+//         }
+//     });
+// });
+
+app.post('/login', loginLimiter, (req, res) => {
+    const { email, password } = req.body;
+
+    // Read user data from the file
+    fs.readFile('users.txt', 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        // Parse user data
+        const users = data.split('\n').map(line => {
+            const [emailPart, passwordPart] = line.split(', ');
+            if (!emailPart || !passwordPart) return null;
+            return {
+                email: emailPart.split(': ')[1],
+                password: passwordPart.split(': ')[1],
+            };
+        }).filter(Boolean);
+
+        // Find the user with the matching email
+        const user = users.find(user => user.email === email);
+
+        if (!user) {
+            return res.status(401).send('Invalid email or password');
+        }
+
+        // Compare the plain text password with the hashed password
+        bcrypt.compare(password, user.password, (err, result) => {
+            if (err) {
+                console.error('Error comparing passwords:', err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+
+            if (result) {
+                res.send('Login successful!');
+            } else {
+                res.status(401).send('Invalid email or password');
+            }
+        });
+    });
 });
 
 app.post('/upload-image', upload.single('image'), (req, res) => {
